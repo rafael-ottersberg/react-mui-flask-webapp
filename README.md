@@ -1,9 +1,12 @@
 # Description
 
-A fullstack web application using React, Material-UI, Flask and SQLite.
-Has user registration, login, password reset.
+A fullstack web application framework I developed for private projects using React, Flask and SQLite.
+It has user registration, login, password reset, image upload and a gallery.
 
-Can be installed as PWA on mobile devices.
+The frontend is a Single-Page-Application with Material-UI components.
+
+Can be installed as PWA on mobile devices and used offline.
+Supports push notifications on Android devices.
 
 Deployed on a webserver with Nginx and Gunicorn in Docker containers. The deployment is automated with Github Actions and a Watchtower container to update the Docker containers.
 
