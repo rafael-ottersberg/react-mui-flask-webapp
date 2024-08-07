@@ -1,3 +1,15 @@
+# Description
+
+A fullstack web application using React, Material-UI, Flask and SQLite.
+Has user registration, login, password reset.
+
+Can be installed as PWA on mobile devices.
+
+Deployed on a webserver with Nginx and Gunicorn in Docker containers. The deployment is automated with Github Actions and a Watchtower container to update the Docker containers.
+
+Example animation of a gallery:
+![Gallery](https://github.com/rafael-ottersberg/react-mui-flask-webapp/blob/master/webapp_gallery.gif?raw=true)
+
 # Installation
 
 Install npm and run
