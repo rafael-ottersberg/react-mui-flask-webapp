@@ -1,0 +1,8 @@
+node_modules/
+**/__pycache__/
+*.pyc
+**.sqlite
+**/build/
+**/secrets.env
+.idea
+secrets.env

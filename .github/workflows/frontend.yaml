@@ -1,0 +1,71 @@
+name: Build and publish Docker image for frontend
+
+on:
+  push:
+    branches:
+      - master
+      - release
+
+jobs:
+  build:
+    name: Build frontend
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npx prettier --check .
+      - name: Add local version
+        run: sed -i 's/GIT_COMMIT_HASH/${{ github.sha }}/' src/components/VersionChecker.js
+      - run: npm run build
+      - name: Add server version
+        run: echo ${{ github.sha }} > build/version
+      - name: Upload build result
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-build-output
+          path: |
+            Dockerfile
+            nginx.conf
+            build
+
+  dockerize:
+    name: Create docker image for frontend
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build result
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend-build-output
+      - name: Log in to GitHub Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build container image (latest)
+        if: github.event.ref == 'refs/heads/master'
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/frontend:${{ github.sha }}
+            ghcr.io/${{ github.repository }}/frontend:latest
+      - name: Build container image (stable)
+        if: github.event.ref == 'refs/heads/release'
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/frontend:${{ github.sha }}
+            ghcr.io/${{ github.repository }}/frontend:stable

@@ -1,0 +1,34 @@
+{
+  "workshops": [
+    {
+      "title": "Unihockey",
+      "category": "Sport",
+      "number": 1,
+      "day": "Freitag, Samstag"
+    },
+    {
+      "title": "(Tanz-)Akrobatik: moving in space or moving the space?",
+      "category": "Tanz",
+      "number": 2,
+      "day": "Freitag, Samstag"
+    },
+    {
+      "title": "Skateboard & Scooter",
+      "category": "Sport",
+      "number": 3,
+      "day": "Freitag, Samstag"
+    },
+    {
+      "title": "Beach Volleyball",
+      "category": "Sport",
+      "number": 4,
+      "day": "Freitag"
+    },
+    {
+      "title": "Orientierungslauf – invited to the forest",
+      "category": "Sport",
+      "number": 5,
+      "day": "Freitag, Samstag"
+    }
+  ]
+}
